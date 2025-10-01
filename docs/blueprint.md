@@ -2,7 +2,7 @@
 
 ## Core Features:
 
-- Current Weather Display: Display current weather conditions including temperature, humidity, and wind speed using data fetched from the OpenWeatherMap API (api_keys = ca28730291927fff7f89bbc182f6a33d).
+- Current Weather Display: Display current weather conditions including temperature, humidity, and wind speed using data fetched from the OpenWeatherMap API (api_keys = ).
 - Air Quality Index (AQI) Display: Show AQI with risk-level descriptions based on data from the OpenWeatherMap API.
 - City Search: Allow users to search for weather and AQI data by city name.
 

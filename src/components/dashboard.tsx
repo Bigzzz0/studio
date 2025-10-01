@@ -67,10 +67,10 @@ export function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8">
-      <Card className="border-border/60 shadow-sm hover:shadow-md transition-shadow">
+      <Card className="border-primary/20 bg-card/80 backdrop-blur-sm shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
           <CardTitle>Search for a City</CardTitle>
-          <CardDescription>
+          <CardDescription className="text-foreground/80">
             Get real-time weather and air quality data for any city.
           </CardDescription>
         </CardHeader>
@@ -90,7 +90,7 @@ export function Dashboard() {
                         <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
                           placeholder="e.g., Bangkok, London, Tokyo"
-                          className="pl-10 h-11 text-base"
+                          className="pl-10 h-11 text-base bg-background/70"
                           {...field}
                         />
                       </div>
@@ -99,7 +99,7 @@ export function Dashboard() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto h-11 text-base">
+              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto h-11 text-base" variant="secondary">
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -130,10 +130,10 @@ export function Dashboard() {
         </div>
       ) : (
         !isLoading && (
-          <Card className="flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-border/80 bg-background">
+          <Card className="flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-primary/20 bg-card/50 backdrop-blur-sm">
             <Wind className="w-16 h-16 text-muted-foreground mb-4" />
             <h2 className="text-2xl font-semibold mb-2">Welcome to BreatheEasy!</h2>
-            <CardDescription>
+            <CardDescription className="text-foreground/80">
               Enter a city name in the search bar above to check the latest
               <br />
               weather and air quality information.

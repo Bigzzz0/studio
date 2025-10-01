@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Droplets, Wind } from "lucide-react";
+import { Droplets, Wind, Compass } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -15,12 +15,12 @@ interface WeatherCardProps {
 
 export function WeatherCard({ data }: WeatherCardProps) {
   return (
-    <Card className="transition-all duration-300 hover:shadow-lg border-border/60">
+    <Card className="transition-all duration-300 hover:shadow-lg border-primary/20 bg-card/80 backdrop-blur-sm">
       <CardHeader>
         <CardTitle>
           Current Weather in {data.name}, {data.country}
         </CardTitle>
-        <CardDescription className="capitalize text-base">
+        <CardDescription className="capitalize text-base text-foreground/80">
           {data.description}
         </CardDescription>
       </CardHeader>
@@ -42,17 +42,17 @@ export function WeatherCard({ data }: WeatherCardProps) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg border">
-            <Droplets className="w-6 h-6 text-primary" />
+            <Droplets className="w-6 h-6 text-accent" />
             <div>
               <p className="text-muted-foreground">Humidity</p>
-              <p className="font-semibold text-xl">{data.humidity}%</p>
+              <p className="font-semibold text-xl text-foreground">{data.humidity}%</p>
             </div>
           </div>
           <div className="flex items-center gap-3 p-4 bg-muted/50 rounded-lg border">
-            <Wind className="w-6 h-6 text-primary" />
+            <Wind className="w-6 h-6 text-accent" />
             <div>
               <p className="text-muted-foreground">Wind Speed</p>
-              <p className="font-semibold text-xl">{data.wind_speed} m/s</p>
+              <p className="font-semibold text-xl text-foreground">{data.wind_speed} m/s</p>
             </div>
           </div>
         </div>

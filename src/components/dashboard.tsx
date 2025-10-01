@@ -17,9 +17,11 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { getWeatherDataByCity } from "@/app/actions";
+import { weatherAdvisor } from "@/ai/flows/weather-advisor-flow";
 import type { WeatherAndAqiData } from "@/lib/types";
 import { WeatherCard } from "./weather-card";
 import { AqiCard } from "./aqi-card";
+import { AdvisorCard } from "./advisor-card";
 import {
   Card,
   CardContent,
@@ -36,7 +38,9 @@ const FormSchema = z.object({
 
 export function Dashboard() {
   const [data, setData] = useState<WeatherAndAqiData | null>(null);
+  const [advice, setAdvice] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isAiLoading, setIsAiLoading] = useState(false);
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -50,7 +54,9 @@ export function Dashboard() {
     formData
   ) => {
     setIsLoading(true);
+    setIsAiLoading(true);
     setData(null);
+    setAdvice(null);
     const result = await getWeatherDataByCity(formData.city);
     setIsLoading(false);
 
@@ -60,8 +66,24 @@ export function Dashboard() {
         title: "Error",
         description: result.error,
       });
+      setIsAiLoading(false);
     } else {
       setData(result.data);
+      if (result.data) {
+        weatherAdvisor(result.data)
+          .then((res) => {
+            setAdvice(res.advice);
+          })
+          .catch((err) => {
+            console.error(err);
+            setAdvice("Sorry, I couldn't generate advice right now.");
+          })
+          .finally(() => {
+            setIsAiLoading(false);
+          });
+      } else {
+        setIsAiLoading(false);
+      }
     }
   };
 
@@ -123,13 +145,17 @@ export function Dashboard() {
         </div>
       )}
 
-      {data ? (
-        <div className="grid md:grid-cols-2 gap-8">
-          <WeatherCard data={data.weather} />
-          <AqiCard data={data.aqi} />
+      {data && (
+         <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div className="md:col-span-2">
+              <AdvisorCard advice={advice} isLoading={isAiLoading} />
+            </div>
+            <WeatherCard data={data.weather} />
+            <AqiCard data={data.aqi} />
         </div>
-      ) : (
-        !isLoading && (
+      )}
+
+      {!data && !isLoading && (
           <Card className="flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-primary/20 bg-card/50 backdrop-blur-sm">
             <Wind className="w-16 h-16 text-muted-foreground mb-4" />
             <h2 className="text-2xl font-semibold mb-2">Welcome to BreatheEasy!</h2>
@@ -140,7 +166,7 @@ export function Dashboard() {
             </CardDescription>
           </Card>
         )
-      )}
+      }
     </div>
   );
 }

@@ -67,11 +67,11 @@ export function Dashboard() {
 
   return (
     <div className="flex flex-col gap-8">
-      <Card>
+      <Card className="border-border/60 shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
           <CardTitle>Search for a City</CardTitle>
           <CardDescription>
-            Get real-time weather and air quality data.
+            Get real-time weather and air quality data for any city.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -87,10 +87,10 @@ export function Dashboard() {
                   <FormItem className="w-full">
                     <FormControl>
                       <div className="relative">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <Input
                           placeholder="e.g., Bangkok, London, Tokyo"
-                          className="pl-10"
+                          className="pl-10 h-11 text-base"
                           {...field}
                         />
                       </div>
@@ -99,14 +99,17 @@ export function Dashboard() {
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
+              <Button type="submit" disabled={isLoading} className="w-full sm:w-auto h-11 text-base">
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Searching...
                   </>
                 ) : (
-                  "Search"
+                  <>
+                  <Search className="mr-2 h-4 w-4 sm:hidden" />
+                  <span>Search</span>
+                  </>
                 )}
               </Button>
             </form>
@@ -127,11 +130,13 @@ export function Dashboard() {
         </div>
       ) : (
         !isLoading && (
-          <Card className="flex flex-col items-center justify-center text-center p-8 border-dashed">
+          <Card className="flex flex-col items-center justify-center text-center p-12 border-2 border-dashed border-border/80 bg-background">
             <Wind className="w-16 h-16 text-muted-foreground mb-4" />
-            <CardTitle className="mb-2">Welcome!</CardTitle>
+            <h2 className="text-2xl font-semibold mb-2">Welcome to BreatheEasy!</h2>
             <CardDescription>
-              Enter a city name above to get started.
+              Enter a city name in the search bar above to check the latest
+              <br />
+              weather and air quality information.
             </CardDescription>
           </Card>
         )

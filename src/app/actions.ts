@@ -7,7 +7,7 @@ import type {
   WeatherAndAqiData,
 } from "@/lib/types";
 
-const API_KEY = "ca28730291927fff7f89bbc182f6a33d";
+const API_KEY = "";
 const GEO_API_URL = "https://api.openweathermap.org/geo/1.0/direct";
 const WEATHER_API_URL = "https://api.openweathermap.org/data/2.5/weather";
 const AQI_API_URL = "https://api.openweathermap.org/data/2.5/air_pollution";
